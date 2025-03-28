@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<style>
+    .star-rating .fa-star.filled {
+        color: #fbd44c;
+    }
+
+    .star-rating {
+        color: #D3D3D3;
+    }
+</style>
+
+{% endblock %}
+
+{% block body %}
+
+{% include 'navbar.html' %}
+<!-- Main Content -->
+<div class="container mx-auto px-4 py-8 max-w-screen-xl">
+    <!-- Breadcrumb Navigation -->
+    <nav class="flex mb-5" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-sky-700">
+                    <i class="fas fa-home mr-2"></i>
+                    Home
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                    <a href="/manage" class="text-sm font-medium text-gray-700 hover:text-sky-700">Manage
+                        Restaurants</a>
+                </div>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                    <span id="restaurant-name-breadcrumb" class="text-sm font-medium text-gray-500">Loading...</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Restaurant Management</h1>
+        <div>
+            <button type="button" id="delete-restaurant-btn"
+                class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:ring-red-300">
+                <i class="fas fa-trash-alt mr-2"></i> Delete Restaurant
+            </button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <!-- Restaurant Details Form -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Restaurant Details</h2>
+                <form id="restaurant-form">
+                    <div class="mb-4">
+                        <label for="restaurant-name" class="block mb-2 text-sm font-medium text-gray-700">Restaurant
+                            Name</label>
+                        <input type="text" id="restaurant-name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5"
+                            placeholder="Restaurant name" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="restaurant-address"
+                            class="block mb-2 text-sm font-medium text-gray-700">Address</label>
+                        <input type="text" id="restaurant-address"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5"
+                            placeholder="123 Main St, City, State, ZIP" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="category-select" class="block mb-2 text-sm font-medium text-gray-700">category
+                            Type</label>
+                        <select id="category-select"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5"
+                            required>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="restaurant-description"
+                            class="block mb-2 text-sm font-medium text-gray-700">Description</label>
+                        <textarea id="restaurant-description" rows="4"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5"
+                            placeholder="Write a description of your restaurant..."></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-700">Restaurant Image</label>
+                        <div class="flex items-center justify-center w-full">
+                            <label for="restaurant-image"
+                                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                                <div id="image-preview-container" class="hidden w-full h-full">
+                                    <img id="image-preview" class="w-full h-full object-cover rounded-lg" src=""
+                                        alt="Restaurant Image">
+                                </div>
+                                <div id="upload-icon-container"
+                                    class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <i class="fas fa-cloud-upload-alt mb-3 text-gray-400 text-3xl"></i>
+                                    <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to
+                                            upload</span> or drag and drop</p>
+                                    <p class="text-xs text-gray-500">SVG, PNG, JPG or GIF (Max 2MB)</p>
+                                </div>
+                                <input id="restaurant-image" type="file" class="hidden" accept="image/*" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="restaurant-image-url" class="block mb-2 text-sm font-medium text-gray-700">Image
+                            URL</label>
+                        <input type="url" id="restaurant-image-url"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5"
+                            placeholder="https://example.com/image.jpg">
+                    </div>
+
+                    <button type="submit"
+                        class="text-white bg-sky-800 hover:bg-sky-700 focus:ring-4 focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        <i class="fas fa-save mr-2"></i> Save Changes
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Restaurant Statistics -->
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Restaurant Statistics</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-star text-sky-800 text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Average Rating</p>
+                            <div class="flex items-center">
+                                <p id="avg-rating" class="text-2xl font-bold text-gray-800 mr-2">0.0</p>
+                                <div id="avg-star-rating" class="star-rating flex items-center">
+                                    <!-- Stars will be inserted via JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-comment text-sky-800 text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Total Reviews</p>
+                            <p id="total-reviews" class="text-2xl font-bold text-gray-800">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Rating Distribution</h2>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <span class="text-sm font-medium text-gray-700 w-8">5 ★</span>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 ml-2">
+                            <div id="rating-5-bar" class="bg-sky-800 h-2.5 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span id="rating-5-count" class="text-sm font-medium text-gray-700 w-10 text-right">0</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-sm font-medium text-gray-700 w-8">4 ★</span>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 ml-2">
+                            <div id="rating-4-bar" class="bg-sky-800 h-2.5 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span id="rating-4-count" class="text-sm font-medium text-gray-700 w-10 text-right">0</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-sm font-medium text-gray-700 w-8">3 ★</span>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 ml-2">
+                            <div id="rating-3-bar" class="bg-sky-800 h-2.5 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span id="rating-3-count" class="text-sm font-medium text-gray-700 w-10 text-right">0</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-sm font-medium text-gray-700 w-8">2 ★</span>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 ml-2">
+                            <div id="rating-2-bar" class="bg-sky-800 h-2.5 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span id="rating-2-count" class="text-sm font-medium text-gray-700 w-10 text-right">0</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-sm font-medium text-gray-700 w-8">1 ★</span>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 ml-2">
+                            <div id="rating-1-bar" class="bg-sky-800 h-2.5 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span id="rating-1-count" class="text-sm font-medium text-gray-700 w-10 text-right">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Reviews Section -->
+    <div class="mt-8">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">Recent Reviews</h2>
+                <a href="#" id="view-all-reviews" class="text-sm font-medium text-sky-800 hover:text-sky-700">View
+                    All</a>
+            </div>
+            <div id="reviews-container" class="space-y-4">
+                <!-- Reviews will be loaded here via JavaScript -->
+                <div class="text-center py-8">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-sky-800 mx-auto"></div>
+                    <p class="mt-2 text-gray-500">Loading reviews...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+<!-- JavaScript -->
+
+<script type="module" src="{{ url_for('static', path='js/manageDetails.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<style>
+    .star-rating {
+        color: #d1d5db;
+    }
+
+    .star-filled {
+        color: #fbd44c;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+{% include 'navbar.html' %}
+
+<script>
+    const placeholderURL = "{{ url_for('static', path='images/placeholder.png') }}";
+</script>
+
+<!-- Main content -->
+<div class="max-w-screen-xl mx-auto p-4 mt-4 min-h-[calc(100vh-10rem)]">
+
+    <!-- Restaurant details card with split layout -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+        <div class="flex flex-col md:flex-row">
+
+            <!-- Left column: Restaurant image -->
+            <div class="w-full md:w-1/2">
+                <div class="h-full bg-gray-300 flex items-center justify-center">
+                    <img src="placeholderURL" alt="Restaurant image" class="object-cover w-full h-full"
+                        id="restaurant-image">
+                </div>
+            </div>
+
+            <!-- Right column: Restaurant info -->
+            <div class="w-full md:w-1/2 p-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900 mb-2" id="restaurant-name">Loading...</h1>
+                        <div class="flex items-center mb-4">
+                            <div class="flex mr-2" id="restaurant-stars">
+                                <!-- Stars will be added dynamically -->
+                            </div>
+                            <span class="text-gray-600" id="restaurant-rating">0.0</span>
+                            <span class="mx-2 text-gray-600">•</span>
+                            <span class="text-gray-600" id="restaurant-reviews-count">0 reviews</span>
+                        </div>
+                    </div>
+                    <!-- Save button -->
+                    <button type="button" class="text-gray-400 hover:text-sky-800">
+                        <i class="fa-regular fa-bookmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Tags/Categories -->
+                <div class="flex flex-wrap gap-2 mb-4" id="restaurant-categories">
+                    <!-- Categories will be added dynamically -->
+                </div>
+
+                <!-- Address and contact info -->
+                <div class="mb-6">
+                    <h2 class="text-xl font-semibold mb-2">Address</h2>
+                    <div class="flex items-start mb-2">
+                        <i class="fa-solid fa-location-dot text-gray-500 mt-1 mr-2"></i>
+                        <span class="text-gray-700" id="restaurant-address">Loading...</span>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="min-h-[150px] mb-6 ">
+                        <h2 class="text-xl font-semibold mb-2">About</h2>
+                        <p class="text-gray-700" id="restaurant-description">Loading...</p>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Reviews section -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold">Reviews</h2>
+            <button type="button"
+                class="bg-sky-800 hover:bg-sky-700 text-white font-medium rounded-lg text-sm px-5 py-2.5"
+                id="write-review-button">
+                Write a Review
+            </button>
+        </div>
+
+        <!-- Rating summary -->
+        <div class="flex flex-col md:flex-row mb-8">
+            <div class="md:w-1/3 mb-4 md:mb-0 flex flex-col items-center justify-center">
+                <div class="text-5xl font-bold text-gray-900 mb-2" id="average-rating">0.0</div>
+                <div class="flex mb-2" id="average-stars">
+                    <!-- Stars will be added dynamically -->
+                </div>
+                <div class="text-gray-500" id="total-reviews">0 reviews</div>
+            </div>
+            <div class="md:w-2/3">
+                <div class="space-y-2">
+                    <!-- Rating bars -->
+                    <div class="flex items-center" id="five-star-bar">
+                        <span class="text-sm text-gray-700 w-12">5 stars</span>
+                        <div class="flex-grow h-5 bg-gray-200 rounded-full mx-2">
+                            <div class="h-5 bg-amber-300 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span class="text-sm text-gray-700 w-12 text-right">0%</span>
+                    </div>
+                    <div class="flex items-center" id="four-star-bar">
+                        <span class="text-sm text-gray-700 w-12">4 stars</span>
+                        <div class="flex-grow h-5 bg-gray-200 rounded-full mx-2">
+                            <div class="h-5 bg-amber-300 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span class="text-sm text-gray-700 w-12 text-right">0%</span>
+                    </div>
+                    <div class="flex items-center" id="three-star-bar">
+                        <span class="text-sm text-gray-700 w-12">3 stars</span>
+                        <div class="flex-grow h-5 bg-gray-200 rounded-full mx-2">
+                            <div class="h-5 bg-amber-300 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span class="text-sm text-gray-700 w-12 text-right">0%</span>
+                    </div>
+                    <div class="flex items-center" id="two-star-bar">
+                        <span class="text-sm text-gray-700 w-12">2 stars</span>
+                        <div class="flex-grow h-5 bg-gray-200 rounded-full mx-2">
+                            <div class="h-5 bg-amber-300 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span class="text-sm text-gray-700 w-12 text-right">0%</span>
+                    </div>
+                    <div class="flex items-center" id="one-star-bar">
+                        <span class="text-sm text-gray-700 w-12">1 star</span>
+                        <div class="flex-grow h-5 bg-gray-200 rounded-full mx-2">
+                            <div class="h-5 bg-amber-300 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span class="text-sm text-gray-700 w-12 text-right">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter options -->
+        <div class="flex flex-wrap gap-2 mb-4">
+            <button type="button" class="bg-sky-800 text-white px-3 py-1 rounded-full text-sm">All</button>
+            <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded-full text-sm">5
+                Stars</button>
+            <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded-full text-sm">4
+                Stars</button>
+            <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded-full text-sm">3
+                Stars</button>
+            <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded-full text-sm">2
+                Stars</button>
+            <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded-full text-sm">1
+                Star</button>
+        </div>
+
+        <!-- Write review form (hidden by default) -->
+        <div class="hidden bg-gray-50 p-4 rounded-lg mb-6" id="review-form">
+            <h3 class="text-lg font-semibold mb-4">Write Your Review</h3>
+            <div class="mb-4">
+                <label class="block mb-2 text-sm font-medium text-gray-900">Your Rating</label>
+                <div class="flex items-center" id="rating-selector">
+                    <i class="fa-regular fa-star text-2xl cursor-pointer hover:text-amber-300 mr-1" data-rating="1"></i>
+                    <i class="fa-regular fa-star text-2xl cursor-pointer hover:text-amber-300 mr-1" data-rating="2"></i>
+                    <i class="fa-regular fa-star text-2xl cursor-pointer hover:text-amber-300 mr-1" data-rating="3"></i>
+                    <i class="fa-regular fa-star text-2xl cursor-pointer hover:text-amber-300 mr-1" data-rating="4"></i>
+                    <i class="fa-regular fa-star text-2xl cursor-pointer hover:text-amber-300" data-rating="5"></i>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="review-title" class="block mb-2 text-sm font-medium text-gray-900">Title</label>
+                <input type="text" id="review-title"
+                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-800 focus:border-sky-800 block w-full p-2.5"
+                    placeholder="Summarize your experience" required>
+            </div>
+            <div class="mb-4">
+                <label for="review-content" class="block mb-2 text-sm font-medium text-gray-900">Review</label>
+                <textarea id="review-content" rows="4"
+                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-800 focus:border-sky-800 block w-full p-2.5"
+                    placeholder="Tell us about your experience..."></textarea>
+            </div>
+            <div class="flex justify-end gap-2">
+                <button type="button"
+                    class="text-gray-700 bg-gray-200 hover:bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
+                    id="cancel-review-button">Cancel</button>
+                <button type="button"
+                    class="text-white bg-sky-800 hover:bg-sky-700 font-medium rounded-lg text-sm px-5 py-2.5"
+                    id="submit-review-button">Submit Review</button>
+            </div>
+        </div>
+
+        <!-- Review list -->
+        <div id="reviews-container">
+            <!-- Reviews will be added dynamically -->
+            <div class="text-center text-gray-500 py-8" id="no-reviews-message">No reviews yet. Be the first to
+                review!</div>
+        </div>
+
+        <!-- Report Modal -->
+        <div id="reportModal" class="fixed inset-0 hidden bg-gray-900 bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white rounded-lg p-6 w-96">
+                <h2 class="text-xl font-semibold mb-4">Report Review</h2>
+                <!-- <label for="reportReason" class="block text-sm font-medium text-gray-700">Reason for
+                        reporting:</label> -->
+                <textarea id="reportReason" class="w-full p-2 border border-gray-300 rounded-lg mt-2" rows="3"
+                    placeholder="Type your reason here..."></textarea>
+                <div class="flex justify-end mt-4 gap-2">
+                    <button id="cancelReport"
+                        class="text-gray-700 bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg">Cancel</button>
+                    <button id="submitReport"
+                        class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Submit</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination (hidden if no reviews) -->
+        <div class="hidden" id="pagination">
+            <div class="flex justify-center mt-6">
+                <nav aria-label="Page navigation">
+                    <ul class="inline-flex -space-x-px text-sm">
+                        <li>
+                            <a href="#"
+                                class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">Previous</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center justify-center px-3 h-8 leading-tight text-sky-800 border border-gray-300 bg-gray-100 hover:bg-gray-100 hover:text-gray-700">1</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">2</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">3</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+{% include 'footer.html' %}
+
+
+<!-- JavaScript for restaurant details page -->
+<script type="module" src="{{ url_for('static', path='js/restaurantDetails.js') }}"></script>
+
+{% endblock %}

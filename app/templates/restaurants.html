@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+
+{% include 'navbar.html' %}
+
+<script>
+    const placeholderUrl = "{{ url_for('static', path='images/placeholder.png') }}";
+</script>
+
+
+  <!-- Main content -->
+  <main class="flex-grow">
+      <div class="container mx-auto px-4 py-8">
+          <!-- Header Section -->
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+              <h1 class="text-3xl font-bold text-gray-800">Restaurants</h1>
+              <div></div>
+              
+              <!-- Search Bar -->
+              <div class="relative w-full md:max-w-md">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                      </svg>
+                  </div>
+                  <input type="search" id="search-input" class="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-2xl bg-white focus:ring-sky-500 focus:border-sky-500" placeholder="Search restaurants..." required>
+              </div>
+              <div></div>
+              <div></div>
+              <div></div>
+          </div>
+
+          <!-- Filters Section -->
+          <div class="flex flex-wrap gap-4 mb-6">
+              <select id="sort-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-sky-500 focus:border-sky-500 block p-2.5">
+                  <option value="rating-desc" selected>Highest Rated</option>
+                  <option value="rating-asc">Lowest Rated</option>
+                  <option value="name-asc">Name (A-Z)</option>
+                  <option value="name-desc">Name (Z-A)</option>
+              </select>
+              
+              <select id="category-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-sky-500 focus:border-sky-500 block p-2.5">
+                  <option value="all" selected>All Categories</option>
+              </select>
+          </div>
+
+          <!-- Restaurants Grid -->
+          <div id="restaurants-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <!-- Restaurant cards will be inserted here by JavaScript -->
+          </div>
+
+          <p id="no-restaurants-message" class="text-center text-gray-600 m-96 hidden">No restaurants found</p>
+
+          <!-- Pagination -->
+          <div class="flex justify-center mt-8">
+              <nav aria-label="Page navigation">
+                  <ul id="pagination" class="inline-flex -space-x-px text-sm">
+                      <li>
+                          <a href="#" data-page="prev" class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">Previous</a>
+                      </li>
+                      <li>
+                          <a href="#" data-page="1" class="flex items-center justify-center px-3 h-8 leading-tight text-sky-600 bg-sky-50 border border-gray-300 hover:bg-sky-100 hover:text-sky-700">1</a>
+                      </li>
+                      <li>
+                          <a href="#" data-page="2" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">2</a>
+                      </li>
+                      <li>
+                          <a href="#" data-page="3" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">3</a>
+                      </li>
+                      <li>
+                          <a href="#" data-page="next" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700">Next</a>
+                      </li>
+                  </ul>
+              </nav>
+          </div>
+      </div>
+  </main>
+
+ {% include 'footer.html' %}
+
+ <script type="module" src="{{ url_for('static', path='js/restaurants.js') }}"></script>
+
+
+  <!-- Flowbite JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
+
+{% endblock %}

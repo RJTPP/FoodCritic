@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/tailwindcss.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    
+    <style>
+        .restaurant-card:hover {
+            box-shadow: 0 8px 10px -1px rgba(0, 0, 0, 0.05), 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transform: scale(1.02);
+            transition: box-shadow 0.05s ease-in-out, transform 0.3s ease-in-out;
+        }
+        
+        .restaurant-card:not(:hover) {
+            transition: box-shadow 0.05s ease-in-out, transform 0.5s ease-in-out;
+        }
+        </style>
+    
+    {% block head %}{% endblock %}
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    {% block body %}{% endblock %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+</body>
+
+</html>

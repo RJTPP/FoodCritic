@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodCritic - Restaurant Reviews</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Flowbite CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+
+    <style>
+        .hero-animation {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .feature-card:not(:hover) {
+            transition: box-shadow 0.05s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .feature-card:hover {
+            box-shadow: 0 8px 10px -1px rgba(0, 0, 0, 0.05), 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transform: scale(1.02);
+            transition: box-shadow 0.05s ease-in-out, transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Navigation Bar -->
+
+    {% include 'navbar.html' %}
+
+    <!-- Hero Section -->
+    <section class="bg-white">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 hero-animation">
+            <div class="flex items-center justify-center">
+                <dotlottie-player
+                src="{{ url_for('static', path='images/stars.lottie') }}"
+                background="transparent"
+                speed="1"
+                style="width: 400px; height: 150px"
+                autoplay
+                ></dotlottie-player>
+            </div>
+            <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl" id="hero-title">
+                <!-- Title will be inserted via JS -->
+            </h1>
+            <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48" id="hero-description">
+                <!-- Description will be inserted via JS -->
+            </p>
+            <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+                <a href="/restaurants" class="bg-sky-800 hover:bg-sky-700 text-white font-medium rounded-2xl text-lg px-5 py-3 text-center inline-flex items-center">
+                    Get started
+                    <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="bg-gray-100 py-12">
+        <div class="max-w-screen-xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8">How It Works</h2>
+            <div class="grid md:grid-cols-3 gap-8" id="features-container">
+                <!-- Features will be inserted via JS -->
+            </div>
+        </div>
+    </section>
+
+    <div class="md:h-20"></div>
+
+    {% include 'footer.html' %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const footer = document.querySelector('#site-footer');
+            footer.classList.add('md:fixed', 'md:bottom-0', 'md:w-full');
+        });
+
+    </script>
+
+
+    <!-- Flowbite JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Content that will be dynamically inserted
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Hero Content
+            const heroTitle = document.getElementById('hero-title');
+            heroTitle.textContent = "Discover Your Next Favorite Restaurant";
+            
+            const heroDescription = document.getElementById('hero-description');
+            heroDescription.textContent = "Join our community of food enthusiasts who share honest reviews about restaurants in your area. Find hidden gems and share your culinary adventures with others.";
+            
+            // Features
+            const featuresContainer = document.getElementById('features-container');
+            const features = [
+                {
+                    icon: '<svg class="w-10 h-10 mb-2 text-sky-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>',
+                    title: 'Discover',
+                    description: 'Find restaurants you might not have heard of yet.'
+                },
+                {
+                    icon: '<svg class="w-10 h-10 mb-2 text-sky-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>',
+                    title: 'Review',
+                    description: 'Share your dining experiences and help others find great restaurants.'
+                },
+                {
+                    icon: '<svg class="w-10 h-10 mb-2 text-sky-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>',
+                    title: 'Connect',
+                    description: 'Save your favorite restaurants and share them with others.'
+                }
+            ];
+            
+            features.forEach(feature => {
+                const featureElement = document.createElement('div');
+                featureElement.className = 'feature-card text-center p-6 bg-white rounded-lg shadow-md';
+                featureElement.innerHTML = `
+                    <div class="flex justify-center">
+                        ${feature.icon}
+                    </div>
+                    <h3 class="mb-2 text-xl font-bold">${feature.title}</h3>
+                    <p class="text-gray-600">${feature.description}</p>
+                `;
+                featuresContainer.appendChild(featureElement);
+            });
+            
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+    
+</body>
+</html>
