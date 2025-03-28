@@ -86,8 +86,8 @@ project
 
 ### 2. Clone the Repository
 ```sh
-git clone https://github.com/yourusername/restaurant-review-app.git
-cd restaurant-review-app
+git clone https://github.com/RJTPP/FoodCritic
+cd FoodCritic
 ```
 
 ### 3. Set Up Environment Variables
@@ -106,8 +106,11 @@ MYSQL_PASSWORD=[PASSWORD]
 DATABASE_URL=mysql+pymysql://admin:[ROOTPASSWORD]@db/[restaurant_db]  
 # Token
 TOKEN_SECRET=[SECRET_KEY] 
-TOKEN_ALGORITHM=HS256
+TOKEN_ALGORITHM=[For example: HS256]
 ```
+
+> [!CAUTION]
+> For production, consider using a secure secret management system (e.g., AWS Secrets Manager, Docker Secrets, or environment-level variables).
 
 ### 4. Start the Application (Docker 🐳)
 ```sh
