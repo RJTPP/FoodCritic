@@ -22,9 +22,9 @@ FoodCritic is a FastAPI-based restaurant review web application that allows user
   - [🔑 Authentication \& API Usage](#-authentication--api-usage)
     - [Obtain Access Token (Login)](#obtain-access-token-login)
   - [🔗 API Endpoints](#-api-endpoints)
-  - [👨‍💻 Future Enhancements](#-future-enhancements)
-  - [⚠️ Security Best Practices](#️-security-best-practices)
+  - [✨ Future Enhancements](#-future-enhancements)
   - [📄 License](#-license)
+  - [🧑‍💻 Developed By](#-developed-by)
 
 
 ## 🚀 Features
@@ -179,17 +179,24 @@ For full documentation, visit: **/docs** endpoint.
 
 
 
-## 👨‍💻 Future Enhancements
+## ✨ Future Enhancements
 - Add **Admin Dashboard** for managing restaurants & users.  
-- Implement **pagination & sort by** in restaurant listings.  
+- Implement **pagination** in restaurant listings.  
 - Improve **frontend interactivity** using Vue.js or React.  
-
-## ⚠️ Security Best Practices
 - Use HTTP-only cookies instead of localStorage for storing JWT tokens.
-- Enable HTTPS in production for secure token transmission.
 - Use rate limiting to prevent abuse of API endpoints.
 
 
 ## 📄 License
 This project is open-source and available under the **MIT License**.
 
+## 🧑‍💻 Developed By
+
+1. Rajata Thamcharoensatit [@RJTPP](https://github.com/RJTPP) - 66105022182
+2. Jiraphat Sritawee [@HikaruMG](https://github.com/HikaruMG/) - 6610502005
+3. Phutthiphong Rodboung [@Rennis](https://github.com/Rennis) - 6610502170
+
+
+<sub>This project was made for 01204351 Database System.</sub>
+
+<sup>Computer Engineering (CPE) Faculty, Kasetsart University, Bangkok, Thailand.</sup>
