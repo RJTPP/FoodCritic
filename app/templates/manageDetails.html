@@ -9,6 +9,10 @@
     .star-rating {
         color: #D3D3D3;
     }
+
+    .star-filled {
+        color: #fbd44c;
+    }
 </style>
 
 {% endblock %}
@@ -53,7 +57,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+    <div class="mb-6">
         <!-- Restaurant Details Form -->
         <div class="lg:col-span-2">
             <div class="bg-white rounded-lg shadow-md p-6">
@@ -125,103 +129,127 @@
                 </form>
             </div>
         </div>
+    </div>
 
-        <!-- Restaurant Statistics -->
-        <div class="lg:col-span-1">
-            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Restaurant Statistics</h2>
-                <div class="space-y-4">
-                    <div class="flex items-center">
-                        <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mr-4">
-                            <i class="fas fa-star text-sky-800 text-2xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500">Average Rating</p>
-                            <div class="flex items-center">
-                                <p id="avg-rating" class="text-2xl font-bold text-gray-800 mr-2">0.0</p>
-                                <div id="avg-star-rating" class="star-rating flex items-center">
-                                    <!-- Stars will be inserted via JS -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mr-4">
-                            <i class="fas fa-comment text-sky-800 text-2xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500">Total Reviews</p>
-                            <p id="total-reviews" class="text-2xl font-bold text-gray-800">0</p>
-                        </div>
-                    </div>
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold">Reviews</h2>
+
+        </div>
+
+        <!-- Rating summary -->
+        <div class="flex flex-col md:flex-row mb-8">
+            <div class="md:w-1/3 mb-4 md:mb-0 flex flex-col items-center justify-center">
+                <div class="text-5xl font-bold text-gray-900 mb-2" id="average-rating">0.0</div>
+                <div class="flex mb-2" id="average-stars">
+                    <!-- Stars will be added dynamically -->
                 </div>
+                <div class="text-gray-500" id="total-reviews">0 reviews</div>
             </div>
-
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Rating Distribution</h2>
-                <div class="space-y-3">
-                    <div class="flex items-center">
-                        <span class="text-sm font-medium text-gray-700 w-8">5 ★</span>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5 ml-2">
-                            <div id="rating-5-bar" class="bg-sky-800 h-2.5 rounded-full" style="width: 0%"></div>
+            <div class="md:w-2/3">
+                <div class="space-y-2">
+                    <!-- Rating bars -->
+                    <div class="flex items-center" id="five-star-bar">
+                        <span class="text-sm text-gray-700 w-12">5 stars</span>
+                        <div class="flex-grow h-5 bg-gray-200 rounded-full mx-2">
+                            <div class="h-5 bg-amber-300 rounded-full" style="width: 0%"></div>
                         </div>
-                        <span id="rating-5-count" class="text-sm font-medium text-gray-700 w-10 text-right">0</span>
+                        <span class="text-sm text-gray-700 w-12 text-right">0%</span>
                     </div>
-                    <div class="flex items-center">
-                        <span class="text-sm font-medium text-gray-700 w-8">4 ★</span>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5 ml-2">
-                            <div id="rating-4-bar" class="bg-sky-800 h-2.5 rounded-full" style="width: 0%"></div>
+                    <div class="flex items-center" id="four-star-bar">
+                        <span class="text-sm text-gray-700 w-12">4 stars</span>
+                        <div class="flex-grow h-5 bg-gray-200 rounded-full mx-2">
+                            <div class="h-5 bg-amber-300 rounded-full" style="width: 0%"></div>
                         </div>
-                        <span id="rating-4-count" class="text-sm font-medium text-gray-700 w-10 text-right">0</span>
+                        <span class="text-sm text-gray-700 w-12 text-right">0%</span>
                     </div>
-                    <div class="flex items-center">
-                        <span class="text-sm font-medium text-gray-700 w-8">3 ★</span>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5 ml-2">
-                            <div id="rating-3-bar" class="bg-sky-800 h-2.5 rounded-full" style="width: 0%"></div>
+                    <div class="flex items-center" id="three-star-bar">
+                        <span class="text-sm text-gray-700 w-12">3 stars</span>
+                        <div class="flex-grow h-5 bg-gray-200 rounded-full mx-2">
+                            <div class="h-5 bg-amber-300 rounded-full" style="width: 0%"></div>
                         </div>
-                        <span id="rating-3-count" class="text-sm font-medium text-gray-700 w-10 text-right">0</span>
+                        <span class="text-sm text-gray-700 w-12 text-right">0%</span>
                     </div>
-                    <div class="flex items-center">
-                        <span class="text-sm font-medium text-gray-700 w-8">2 ★</span>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5 ml-2">
-                            <div id="rating-2-bar" class="bg-sky-800 h-2.5 rounded-full" style="width: 0%"></div>
+                    <div class="flex items-center" id="two-star-bar">
+                        <span class="text-sm text-gray-700 w-12">2 stars</span>
+                        <div class="flex-grow h-5 bg-gray-200 rounded-full mx-2">
+                            <div class="h-5 bg-amber-300 rounded-full" style="width: 0%"></div>
                         </div>
-                        <span id="rating-2-count" class="text-sm font-medium text-gray-700 w-10 text-right">0</span>
+                        <span class="text-sm text-gray-700 w-12 text-right">0%</span>
                     </div>
-                    <div class="flex items-center">
-                        <span class="text-sm font-medium text-gray-700 w-8">1 ★</span>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5 ml-2">
-                            <div id="rating-1-bar" class="bg-sky-800 h-2.5 rounded-full" style="width: 0%"></div>
+                    <div class="flex items-center" id="one-star-bar">
+                        <span class="text-sm text-gray-700 w-12">1 star</span>
+                        <div class="flex-grow h-5 bg-gray-200 rounded-full mx-2">
+                            <div class="h-5 bg-amber-300 rounded-full" style="width: 0%"></div>
                         </div>
-                        <span id="rating-1-count" class="text-sm font-medium text-gray-700 w-10 text-right">0</span>
+                        <span class="text-sm text-gray-700 w-12 text-right">0%</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Recent Reviews Section -->
-    <div class="mt-8">
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-semibold text-gray-800">Recent Reviews</h2>
-                <a href="#" id="view-all-reviews" class="text-sm font-medium text-sky-800 hover:text-sky-700">View
-                    All</a>
-            </div>
-            <div id="reviews-container" class="space-y-4">
-                <!-- Reviews will be loaded here via JavaScript -->
-                <div class="text-center py-8">
-                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-sky-800 mx-auto"></div>
-                    <p class="mt-2 text-gray-500">Loading reviews...</p>
+
+
+
+        <!-- Review list -->
+        <div id="reviews-container">
+            <!-- Reviews will be added dynamically -->
+            <div class="text-center text-gray-500 py-8" id="no-reviews-message">No reviews yet. Be the first to
+                review!</div>
+        </div>
+
+        <!-- Report Modal -->
+        <div id="reportModal" class="fixed inset-0 hidden bg-gray-900 bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white rounded-lg p-6 w-96">
+                <h2 class="text-xl font-semibold mb-4">Report Review</h2>
+                <!-- <label for="reportReason" class="block text-sm font-medium text-gray-700">Reason for
+                            reporting:</label> -->
+                <textarea id="reportReason" class="w-full p-2 border border-gray-300 rounded-lg mt-2" rows="3"
+                    placeholder="Type your reason here..."></textarea>
+                <div class="flex justify-end mt-4 gap-2">
+                    <button id="cancelReport"
+                        class="text-gray-700 bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg">Cancel</button>
+                    <button id="submitReport"
+                        class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Submit</button>
                 </div>
             </div>
         </div>
+
+        <!-- Pagination (hidden if no reviews) -->
+        <div class="hidden" id="pagination">
+            <div class="flex justify-center mt-6">
+                <nav aria-label="Page navigation">
+                    <ul class="inline-flex -space-x-px text-sm">
+                        <li>
+                            <a href="#"
+                                class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">Previous</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center justify-center px-3 h-8 leading-tight text-sky-800 border border-gray-300 bg-gray-100 hover:bg-gray-100 hover:text-gray-700">1</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">2</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">3</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
-</div>
 
-{% include 'footer.html' %}
 
-<!-- JavaScript -->
+    {% include 'footer.html' %}
 
-<script type="module" src="{{ url_for('static', path='js/manageDetails.js') }}"></script>
-{% endblock %}
+    <!-- JavaScript -->
+
+    <script type="module" src="{{ url_for('static', path='js/manageDetails.js') }}"></script>
+    {% endblock %}
