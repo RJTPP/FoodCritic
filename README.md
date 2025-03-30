@@ -195,7 +195,7 @@ This project is open-source and available under the **MIT License**.
 
 ## 🧑‍💻 Developed By
 
-1. Rajata Thamcharoensatit [@RJTPP](https://github.com/RJTPP) - 66105022182
+1. Rajata Thamcharoensatit [@RJTPP](https://github.com/RJTPP) - 6610502218
 2. Jiraphat Sritawee [@HikaruMG](https://github.com/HikaruMG/) - 6610502005
 3. Phutthiphong Rodboung [@Rennis](https://github.com/Rennis) - 6610502170
 
